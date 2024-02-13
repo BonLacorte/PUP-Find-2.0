@@ -2,7 +2,7 @@ import express from 'express'
 import catchAsyncErrors from "./../middleware/catchAsyncErrors.js"
 import Chat from '../models/Chat.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
-import Message from '../models/message.js';
+import Message from '../models/Message.js';
 import { User } from '../models/User.js';
 
 const router = express.Router();
