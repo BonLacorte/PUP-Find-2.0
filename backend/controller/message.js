@@ -1,6 +1,7 @@
 import express from 'express'
 import catchAsyncErrors from "./../middleware/catchAsyncErrors.js"
-import Message from '../models/message.js';
+// import Message from '../models/Message.js';
+import Message from '../models/Message.js';
 import { verifyJWT } from '../middleware/verifyJWT.js';
 import Chat from '../models/Chat.js';
 
