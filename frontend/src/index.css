@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Gelasio&family=Inter:wght@400;500&display=swap');
+@import "@flaticon/flaticon-uicons/css/all/all";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    @apply m-0 p-0  text-base duration-200;
+  }
+
+  html{
+    @apply overflow-x-hidden;
+  }
+
+  body {
+    @apply font-inter font-normal text-black;
+      /* @apply font-inter font-normal; */
+  }
+
+  .btn-primary{
+    @apply whitespace-nowrap bg-primaryColor text-white rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80 font-semibold;
+    /* @apply whitespace-nowrap rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80; */
+  }
+
+  .btn-secondary{
+    @apply whitespace-nowrap bg-secondaryColor text-black rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80 font-semibold;
+    /* @apply whitespace-nowrap rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80; */
+  }
+
+  .btn-light{
+      @apply btn-primary bg-primaryColor text-black;
+  }
+
+  .btn-navbar{
+      @apply py-3 px-6 text-xl bg-primaryColor text-white;
+  }
+
+  .hide{
+    @apply opacity-0 pointer-events-none duration-100;
+  }
+
+  .show{
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  section{
+    @apply py-4 px-[5vw] md:px-[7vw] lg:px-[10vw];
+  }
+}

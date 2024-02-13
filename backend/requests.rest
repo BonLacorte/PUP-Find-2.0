@@ -1,0 +1,63 @@
+# POST http://localhost:3500/user/login
+# Content-Type: application/json
+
+# {
+#     "email": "abcd@gmail.com",
+#     "password": "@Lacorte215"
+
+# }
+
+# POST http://localhost:3500/user/revoke-refresh-token
+# Content-Type: application/json
+# # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE3NzY4MDQxNzlhY2JkMjIwNjA3ZWMiLCJ0b2tlbl92ZXJzaW9uIjowLCJpYXQiOjE3MDY0MTE5NDAsImV4cCI6MTcwNzAxNjc0MH0.A6GSpKuCfjWIzwiLyPDqsHsy7_vwQaOnCedYUjQl-2c
+
+# {
+#     "userId": "65a776804179acbd220607ec"
+# }
+
+# GET  http://localhost:3500/chat/get-conversation
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE3NzY4MDQxNzlhY2JkMjIwNjA3ZWMiLCJpYXQiOjE3MDYzNzI2MTUsImV4cCI6MTcwNjQ1OTAxNX0.mwW4q-VupTrXuXKzabrAQOOBQH4YHfCLbmAwctedUIo
+
+# POST http://localhost:3500/refresh-token
+
+# GET  http://localhost:3500/chat/get-conversation
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE3NzY4MDQxNzlhY2JkMjIwNjA3ZWMiLCJpYXQiOjE3MDYzNzI2MTUsImV4cCI6MTcwNjQ1OTAxNX0.mwW4q-VupTrXuXKzabrAQOOBQH4YHfCLbmAwctedUIo
+# Content-Type: application/json
+
+# {
+#         "chatName": "Test Chat",
+#         "users": [
+#                 "5f9f9b9b9b9b9b9b9b9b9b9b",
+#                 "5f9f9b9b9b9b9b9b9b9b9b9b"
+#         ]
+# }
+
+# {
+#         "membership": "Student",
+#         "name": "Bon Lacorte",
+#         "uid": "2020-071237-MN-0",
+#         "email": "abc@gmail.com",
+#         "phone_number": "09219654147",
+#         "specification": "fsdfsd",
+#         "twitter_link": "fdsf",
+#         "facebook_link": "sdf",
+#         "password": "@Lacorte215",
+#         "confirm_password": "@Lacorte215",
+#         "pic": "https://res.cloudinary.com/dkzlw5aub/image/upload/v1705412250/blog/cfoycyjududwpds0yqiz.jpg" 
+# }
+
+POST http://localhost:3500/message/new-message
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "sender": "65a776804179acbd220607ec",
+    "text": "",
+    "chatId": "65b3bfbc665b7a93f79dcc9b",
+    "image": "https://res.cloudinary.com/dkzlw5aub/image/upload/v1705473647/blog/z8mp3p0an0miclrzpmol.jpg" 
+}
+
+# 65a776804179acbd220607ec
+# 65a68c5e068ea6c165d03433
+# GET  http://localhost:3500/message/get-all-messages/65b3bfbc665b7a93f79dcc9b
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE3NzY4MDQxNzlhY2JkMjIwNjA3ZWMiLCJpYXQiOjE3MDYzNzI2MTUsImV4cCI6MTcwNjQ1OTAxNX0.mwW4q-VupTrXuXKzabrAQOOBQH4YHfCLbmAwctedUIo
