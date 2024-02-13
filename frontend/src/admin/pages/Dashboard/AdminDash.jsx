@@ -56,12 +56,12 @@ const AdminDash = () => {
             }
         })
         .then( ({ data }) => {
-            console.log("fetchDataByYear - data:",data)
+            // console.log("fetchDataByYear - data:",data)
             setChartData(data);
             setBarLoading(false)
         })
         .catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         })
         // .finally(() => {
         //     setBarLoading(false)
@@ -71,8 +71,8 @@ const AdminDash = () => {
     // Create a function to fetch all reports
     const getReportsWithDateRange  = async (startDate, endDate) => {
         
-        console.log("startDate:",startDate)
-        console.log("endDate:",endDate)
+        // console.log("startDate:",startDate)
+        // console.log("endDate:",endDate)
 
         const config = { 
             withCredentials: true,
@@ -92,13 +92,13 @@ const AdminDash = () => {
             })
         .then( async ({ data }) => {
 
-            console.log("getReportsWithDateRange - data:",data)
+            // console.log("getReportsWithDateRange - data:",data)
 
             setCounts(data); // Set the reports in state
             setLoading(false)
         })
         .catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         })
         // .finally(() => {
         //     setLoading(false)

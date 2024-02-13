@@ -56,7 +56,7 @@ const AccountEdit = ({ user, setOpen, fetchUserProfile}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('User info', formData)
+        // console.log('User info', formData)
 
         axios.put(`${server}/user/update-user-info/${user_id}`, formData,
         {
@@ -66,7 +66,7 @@ const AccountEdit = ({ user, setOpen, fetchUserProfile}) => {
             }
         }).then(({ data: { user } }) => {
 
-            console.log("New user info",user)
+            // console.log("New user info",user)
 
             toast.success('Report updated successfully!');
             
@@ -74,7 +74,7 @@ const AccountEdit = ({ user, setOpen, fetchUserProfile}) => {
             // window.location.reload(true); 
             fetchUserProfile()
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             toast.error('Error updating report');
         })
     };
@@ -89,19 +89,19 @@ const AccountEdit = ({ user, setOpen, fetchUserProfile}) => {
 
             uploadImage(img).then((imgUrl) => {
                 if(imgUrl) {
-                    console.log(`On the upload image function: `, imgUrl)
+                    // console.log(`On the upload image function: `, imgUrl)
                     toast.dismiss(loadingToast)
                     toast.success("Uploaded")
                     userAvatarRef.current.src = imgUrl
 
                     formData.pic = imgUrl
 
-                    console.log("avatar1", avatar)
+                    // console.log("avatar1", avatar)
                 }
             })
             .catch(err => {
                 toast.dismiss(loadingToast)
-                console.log(err)
+                // console.log(err)
                 return toast.error(err)
             })
         }

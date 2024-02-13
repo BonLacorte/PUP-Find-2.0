@@ -38,11 +38,11 @@ const UserInfo = () => {
                 }
             })
             .then(({ data: { reports } }) => {
-                console.log("reports", reports)
+                // console.log("reports", reports)
                 setUserReports(reports)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
                 return null
             })
         }

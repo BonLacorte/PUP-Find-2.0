@@ -4,7 +4,6 @@ import { server } from '../server';
 import { Link, useNavigate } from 'react-router-dom';
 import InputBox from '../components/InputBox';
 import { Toaster, toast } from "react-hot-toast"
-import { storeInSession } from '../common/session';
 import { UserContext } from '../App';
 import { uploadImage } from '../common/cloudinary';
 import defaultAvatar from '../imgs/blog banner.png'
@@ -17,7 +16,7 @@ const UserAuthForm = ({ type }) => {
 
     let { userAuth: { access_token }, setUserAuth } = useContext(UserContext)
 
-    // console.log(access_token)
+    // // console.log(access_token)
 
     let navigate = useNavigate()
 
@@ -75,7 +74,7 @@ const UserAuthForm = ({ type }) => {
         .then(({ data }) => {
             // storeInSession("user", JSON.stringify(data))
             if (type == "login") {
-                console.log('Login, data:',data)
+                // console.log('Login, data:',data)
                 setUserAuth(data)
             }    
 
@@ -124,7 +123,7 @@ const UserAuthForm = ({ type }) => {
             formData.pic = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
         }
 
-        console.log(formData)
+        // console.log(formData)
 
         userAuthThroughServer(serverRoute, formData, e)
     }
@@ -139,19 +138,19 @@ const UserAuthForm = ({ type }) => {
 
             uploadImage(img).then((imgUrl) => {
                 if(imgUrl) {
-                    console.log(`On the upload image function: `, imgUrl)
+                    // console.log(`On the upload image function: `, imgUrl)
                     toast.dismiss(loadingToast)
                     toast.success("Uploaded")
                     userAvatarRef.current.src = imgUrl
 
                     formData.pic = imgUrl
 
-                    console.log("avatar1", avatar)
+                    // console.log("avatar1", avatar)
                 }
             })
             .catch(err => {
                 toast.dismiss(loadingToast)
-                console.log(err)
+                // console.log(err)
                 return toast.error(err)
             })
         }

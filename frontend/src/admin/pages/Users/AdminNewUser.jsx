@@ -59,7 +59,7 @@ const AdminNewUser = ({ setOpen, getAllUsers }) => {
 
         e.target.classList.add('disable')
 
-        console.log(formData)
+        // console.log(formData)
 
         await axios.post(`${server}/user/register`, formData,
         {
@@ -98,19 +98,19 @@ const AdminNewUser = ({ setOpen, getAllUsers }) => {
 
             uploadImage(img).then((imgUrl) => {
                 if(imgUrl) {
-                    console.log(`On the upload image function: `, imgUrl)
+                    // console.log(`On the upload image function: `, imgUrl)
                     toast.dismiss(loadingToast)
                     toast.success("Uploaded")
                     userAvatarRef.current.src = imgUrl
 
                     formData.pic = imgUrl
 
-                    console.log("avatar1", avatar)
+                    // console.log("avatar1", avatar)
                 }
             })
             .catch(err => {
                 toast.dismiss(loadingToast)
-                console.log(err)
+                // console.log(err)
                 return toast.error(err)
             })
         }

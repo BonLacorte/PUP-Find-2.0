@@ -19,8 +19,8 @@ const LocatePage = ({ type }) => {
         setOpen(!open)
     }
 
-    console.log("type", type)
-    console.log("after_report", after_report)
+    // console.log("type", type)
+    // console.log("after_report", after_report)
 
     return (
         access_token ?

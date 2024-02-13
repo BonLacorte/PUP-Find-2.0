@@ -1,15 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import pupfind_word from '../imgs/pupfind_word.png'
-import { UserContext } from '../App'
 import { getAccessToken, getUserId,  } from '../common/userInfo'
 import UserNavigationPanel from './UserNavigationPanel'
 
 const Navbar = () => {
-
-    // let navigate = useNavigate()
-
-    // const { userAuth, userAuth: { access_token, profile_img } } = useContext(UserContext)
     const access_token = getAccessToken()
     const user_id = getUserId()
     const [ userNavPanel, setUserNavPanel ] = useState(false)

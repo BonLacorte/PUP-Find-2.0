@@ -4,15 +4,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import UserAuthForm from './pages/UserAuthForm'
 import HomePage from './pages/HomePage'
-import MissingPage from './pages/Report/ChoicesPage'
 import NewReportPage from './pages/Report/NewReportPage'
 import LocatePage from './pages/Report/LocatePage'
-import { lookInSession } from './common/session'
 import AccountPage from './pages/User/AccountPage'
 import MessagePage from './pages/Chat/MessagePage'
 import axios from 'axios'
 import { server } from './server'
-import Loader from './components/Loader'
 import { getAccessToken, setAccessToken, setUserId, setUserInfo } from './common/userInfo'
 import AdminLayout from './admin/components/AdminLayout'
 import AdminUserAuthForm from './admin/pages/AdminUserAuthForm'
@@ -40,9 +37,9 @@ const App = () => {
         }).then( ({ data }) => {
             // let { access_token } = data
             // setUserAuth( access_token )
-            // console.log("App.jsx",data)
-            // console.log("access_token",access_token)
-            console.log("App.jsx data:",data.user_info._doc)
+            // // console.log("App.jsx",data)
+            // // console.log("access_token",access_token)
+            // console.log("App.jsx data:",data.user_info._doc)
             if ( data && data.access_token && data.user_id ) {
                 setAccessToken(data.access_token)
                 userAuth.access_token = getAccessToken()
@@ -51,7 +48,7 @@ const App = () => {
             }
             setLoading(false)
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         });
     
     }, [])

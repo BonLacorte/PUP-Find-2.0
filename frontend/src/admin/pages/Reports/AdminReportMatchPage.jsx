@@ -29,8 +29,8 @@ const AdminReportMatchPage = () => {
     let [ chosenMissingReport, setChosenMissingReport ] = useState('')
 
     let location = useLocation();
-    console.log('location.state:',location.state)
-    console.log('location.state.report.creatorId.id:',location.state.report.creatorId.id)
+    // console.log('location.state:',location.state)
+    // console.log('location.state.report.creatorId.id:',location.state.report.creatorId.id)
     let reportCreatorId = location.state.report.creatorId.id
     let firstImage = location.state.report.images?.[0]
 
@@ -52,22 +52,22 @@ const AdminReportMatchPage = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(( {data: {reports}}) => {
-            // console.log("reports",reports)
-            // console.log("foundReport:",foundReport)
-            // console.log("user_id:",user_id)
+            // // console.log("reports",reports)
+            // // console.log("foundReport:",foundReport)
+            // // console.log("user_id:",user_id)
             let filteredData
 
             if (type === 'MissingReport') {
                 filteredData = reports.filter((report) => report.is_claimed === false && report.report_info.creatorId._id !== reportCreatorId);
                 filteredData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by createdAt in descending order
-                console.log(filteredData)
+                // console.log(filteredData)
                 setMissingReports(filteredData);
                 setMissingReportsLoading(false);
                 return;
             } 
         })
         .catch (error => {
-            console.log(error)
+            // console.log(error)
             // setError(error)
         })
     }
@@ -85,17 +85,17 @@ const AdminReportMatchPage = () => {
             })
             .then(({ data: {report} }) => {
                 
-                console.log("report",report)
-                console.log("report_info",report.report_info)
-                console.log("report_info.item_name",report.report_info.item_name)
+                // console.log("report",report)
+                // console.log("report_info",report.report_info)
+                // console.log("report_info.item_name",report.report_info.item_name)
 
                 setFoundReport(report);
                 // const firstImage = foundReport?.report_info?.images?.[0];
-                console.log(firstImage)
+                // console.log(firstImage)
                 const itemFirstImage = firstImage || 'https://www.greenheath.co.uk/wp-content/uploads/2015/09/no_image_available1.png';
                 setItemFirstImage(itemFirstImage);
                 setOldImage(report.report_info.images ?? []);
-                console.log("report.report_info.images:", report.report_info.images)
+                // console.log("report.report_info.images:", report.report_info.images)
             })
             setFoundReportLoading(false);
         } catch (error) {
@@ -107,7 +107,7 @@ const AdminReportMatchPage = () => {
 
     const handleDrawer = (report, form_type) => {
 
-        console.log("handleDrawer report: ",report)
+        // console.log("handleDrawer report: ",report)
 
         if (report) {
             setChosenMissingReport(report)
@@ -241,7 +241,7 @@ const AdminReportMatchPage = () => {
                                 <button
                                     onClick={() => {
                                         navigate(`/admin/dash/reports/match/${params.row.original.id}`)
-                                        // console.log("params.row.original",params.row.original)
+                                        // // console.log("params.row.original",params.row.original)
                                     }}
                                     className="bg-green-500 text-white font-bold py-1 px-2 rounded mr-2 border 
                                     hover:bg-green-700 transition duration-200"

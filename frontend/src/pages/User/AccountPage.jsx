@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../App'
-import { removeFromSession } from '../../common/session'
 import { useNavigate } from 'react-router-dom'
 import ScrollableFeed from 'react-scrollable-feed'
 import { getAccessToken, getUserId, getUserInfo, setAccessToken } from '../../common/userInfo'
 import axios from 'axios'
 import { server } from '../../server'
 import { Toaster, toast } from "react-hot-toast"
-import { filterPaginationData } from '../../common/filterPaginationData'
 import InPageNavigation from '../../components/InPageNavigation'
 import Loader from '../../components/Loader'
 import ReportPostCard from '../../components/ReportPostCard'
@@ -17,12 +14,9 @@ import AccountReportInfo from './AccountReportInfo'
 const AccountPage = () => {
 
     let [ profile, setProfile ] = useState()
-    // let [ profile, setProfile ] = useState()
     let [open, setOpen] = useState(false);
     let [ loading, setLoading ] = useState(true)
     let [ userReports, setUserReports ] = useState(null)
-    // let [ reportCreator, setReportCreator ] = useState(null)
-    // let [ reportInfo, setReportInfo ] = useState(null
     let [ drawerTitle, setDrawerTitle ] = useState('')
     let [ chosen, setChosen ] = useState(null)
     let [ selectedImage, setSelectedImage ] = useState(null);
@@ -32,30 +26,18 @@ const AccountPage = () => {
     let user_info = getUserInfo()
     let user_id = getUserId()
 
-    // let { user: { personal_info: { name, uid, email, pic, membership, specification } } } = profile
-
     let navigate = useNavigate()
 
     useEffect(() => {
-
-        // if(profileId != profileLoaded) {
-        //     setBlogs(null)
-        // }
-
         if(userReports == null) {
             resetStates()
             fetchUserProfile()
         }
 
-        // resetStates()
-        // fetchUserProfile()
-
     }, [access_token, userReports,])
-    // }, [])
 
     const resetStates = () => {
         setProfile("")
-        // setBlogs(null)
         setLoading(true)
     }
 
@@ -68,26 +50,24 @@ const AccountPage = () => {
             }
         })
         .then(({ data: { user } }) => {
-            console.log("AccountPage - user",user)
-            console.log("AccountPage - user",user.personal_info.name)
+            // console.log("AccountPage - user",user)
+            // console.log("AccountPage - user",user.personal_info.name)
 
             if(user != null) {
                 setProfile(user)
             }
             setProfile(user)
-            // console.log(user)
-            // console.log(user._id)
             fetchReports({ user_id })
             setLoading(false)
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             setLoading(false)
         })
     }
 
     const fetchReports = async () => {
-        console.log(`user_id`, user_id)
+        // console.log(`user_id`, user_id)
 
         await axios.get(`${server}/report/get-all-reports-by-user/${user_id}`, 
         {
@@ -97,13 +77,13 @@ const AccountPage = () => {
             }
         })
         .then(({ data: { reports } }) => {
-            console.log("reports", reports)
-            console.log("user_info", user_info)
-            console.log("profile", profile)
+            // console.log("reports", reports)
+            // console.log("user_info", user_info)
+            // console.log("profile", profile)
             setUserReports(reports)
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
             return null
         })
     };
@@ -111,21 +91,21 @@ const AccountPage = () => {
 
     const handleDrawer = (chosen, form_type) => {
 
-        // console.log("handleDrawer report: ",report.id)
+        // // console.log("handleDrawer report: ",report.id)
 
         if (chosen) {
             // setChosenReport(report.id)
-            console.log(chosen)
+            // console.log(chosen)
         }
 
         if (form_type === 'report_info') {
             setDrawerTitle("Report Information")
             setChosen(chosen)
-            console.log(form_type)
+            // console.log(form_type)
         } else if (form_type === 'edit') {
             setDrawerTitle('Edit Account')
             setChosen(chosen)
-            console.log(form_type)
+            // console.log(form_type)
         } 
 
         setOpen(true)
@@ -134,7 +114,7 @@ const AccountPage = () => {
 
     const handleReportClick = (report) => {
 
-        console.log("handleReportClick report: ",report)
+        // console.log("handleReportClick report: ",report)
 
         axios.get(`${server}/report/get-report-info/${report._id}`,
         {
@@ -144,12 +124,12 @@ const AccountPage = () => {
             }
         })
         .then(({ data: { report } }) => {
-            console.log("get-user-by-creator-id - reportCreator", report.report_info.creatorId)
+            // console.log("get-user-by-creator-id - reportCreator", report.report_info.creatorId)
             setChosenReport(report)
             setOpen(true)
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
             return null
         })
     }
@@ -165,12 +145,12 @@ const AccountPage = () => {
             }
         })
         .then(({ data: { report } }) => {
-            console.log("get-user-by-creator-id - reportCreator", report.report_info.creatorId)
+            // console.log("get-user-by-creator-id - reportCreator", report.report_info.creatorId)
             setChosenReport(report)
             setOpen(true)
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
             return null
         })
 
@@ -187,15 +167,15 @@ const AccountPage = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then( ({ data }) => {
-            console.log(data)
+            // console.log(data)
             setAccessToken("")
             navigate("/")
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         });
     }
 
-    // console.log(user_info.personal_info, "user_info")
+    // // console.log(user_info.personal_info, "user_info")
 
     return (
         access_token ? 

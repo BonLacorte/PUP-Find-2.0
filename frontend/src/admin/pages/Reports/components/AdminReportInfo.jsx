@@ -40,12 +40,12 @@ const AdminReportInfo = ({ type, reportId }) => {
             })
             .then(({ data: {report} }) => {
                 
-                console.log("report",report)
-                // console.log("report_info",report.report_info)
-                // console.log("report_info.item_name",report.report_info.item_name)
+                // console.log("report",report)
+                // // console.log("report_info",report.report_info)
+                // // console.log("report_info.item_name",report.report_info.item_name)
 
                 setReport(report);
-                // console.log("report.report_info.images:", report.report_info.images)
+                // // console.log("report.report_info.images:", report.report_info.images)
                 setItemFirstImage(report.report_info.images === null || report.report_info.images === undefined || report.report_info.images.length === 0 ? 'https://www.greenheath.co.uk/wp-content/uploads/2015/09/no_image_available1.png' : report.report_info.images[0])
                 setOldImage(report.report_info.images === null || report.report_info.images === undefined || report.report_info.images.length === 0 ? [] : report.report_info.images)
                 
@@ -63,9 +63,9 @@ const AdminReportInfo = ({ type, reportId }) => {
 
     const handleDrawer = (report, form_type) => {
 
-        console.log("report", report)
-        console.log("report.report_info.creatorId._id", report.report_info.creatorId._id)
-        console.log("report.report_info.creatorId.personal_info.uid", report.report_info.creatorId.personal_info.uid)
+        // console.log("report", report)
+        // console.log("report.report_info.creatorId._id", report.report_info.creatorId._id)
+        // console.log("report.report_info.creatorId.personal_info.uid", report.report_info.creatorId.personal_info.uid)
 
         if (form_type === 'message') {
             setDrawerTitle('Send Message')

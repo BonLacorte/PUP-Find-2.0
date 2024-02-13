@@ -54,9 +54,9 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             })
             .then(({ data: {report} }) => {
                 
-                console.log("report",report)
-                console.log("report_info",report.report_info)
-                console.log("report_info.item_name",report.report_info.item_name)
+                // console.log("report",report)
+                // console.log("report_info",report.report_info)
+                // console.log("report_info.item_name",report.report_info.item_name)
 
 
                 setFormData({
@@ -102,7 +102,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             status: selectedValue,
         }));
 
-        console.log('formData.status', formData.status)
+        // console.log('formData.status', formData.status)
     }
     
 
@@ -114,7 +114,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             location: selectedValue,
         }));
 
-        console.log('formData.location', formData.location)
+        // console.log('formData.location', formData.location)
     }
 
 
@@ -126,7 +126,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             date: selectedValue,
         }));
 
-        console.log('formData.location', formData.location)
+        // console.log('formData.location', formData.location)
     }
 
 
@@ -135,7 +135,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
 
         setSubmitting(true);
 
-        console.log('Old report info', formData)
+        // console.log('Old report info', formData)
 
         axios.put(`${server}/report/update-report-info/${reportId}`, formData,
         {
@@ -145,7 +145,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             }
         }).then(({ data: { report} }) => {
 
-            console.log("New report info",report)
+            // console.log("New report info",report)
 
             toast.success('Report updated successfully!');
             
@@ -153,7 +153,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
             // window.location.reload(true); 
             getAllReports()
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             toast.error('Error updating report');
         }).finally(() => {
             setSubmitting(false);
@@ -196,7 +196,7 @@ const AdminEditReport = ({ type, reportId,  setOpen, getAllReports}) => {
                 })
                 .catch((err) => {
                     toast.dismiss(loadingToast);
-                    console.log(err);
+                    // console.log(err);
                     return toast.error(err);
                 });
         }

@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom"
 import PageAnimationWrapper from "../common/PageAnimationWrapper"
 import { useContext } from "react"
 import { UserContext } from "../App"
-import { removeFromSession } from "../common/session"
 import axios from "axios"
 import { getAccessToken, getUserInfo, setAccessToken } from "../common/userInfo"
 import { server } from "../server"
@@ -24,12 +23,12 @@ const UserNavigationPanel = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then( ({ data }) => {
-            console.log(data)
+            // console.log(data)
             setAccessToken("")
             navigate("/")
             window.location.reload(true);
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             return toast.error(err)
         });
     }
