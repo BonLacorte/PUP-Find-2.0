@@ -8,7 +8,7 @@ import { getAccessToken } from '../../common/userInfo';
 
 const AccountReportInfo = ({ reportId }) => {
 
-    // // console.log("report", report)
+    // console.log("report", report)
 
     let [loading, setLoading] = useState(true);
     let [report, setReport] = useState();
@@ -35,12 +35,12 @@ const AccountReportInfo = ({ reportId }) => {
             })
             .then(({ data: {report} }) => {
                 
-                // console.log("report",report)
-                // console.log("report_info",report.report_info)
-                // console.log("report_info.item_name",report.report_info.item_name)
+                console.log("report",report)
+                console.log("report_info",report.report_info)
+                console.log("report_info.item_name",report.report_info.item_name)
 
                 setReport(report);
-                // console.log("report.report_info.images:", report.report_info.images)
+                console.log("report.report_info.images:", report.report_info.images)
                 setItemFirstImage(report.report_info.images === null || report.report_info.images === undefined || report.report_info.images.length === 0 ? 'https://www.greenheath.co.uk/wp-content/uploads/2015/09/no_image_available1.png' : report.report_info.images[0])
                 setOldImage(report.report_info.images === null || report.report_info.images === undefined || report.report_info.images.length === 0 ? [] : report.report_info.images)
                 

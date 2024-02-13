@@ -59,7 +59,7 @@ const MessageConversation = () => {
     };
 
     useEffect(() => {
-        // // console.log(selectedChat, "selectedChat")
+        // console.log(selectedChat, "selectedChat")
         socket = io(ENDPOINT);
         socket.emit("setup", user_id);
         socket.on("connected", () => setSocketConnected(true));
@@ -68,7 +68,7 @@ const MessageConversation = () => {
     
         if (!selectedChat) {
             setSelectedChat(chats[0])
-            // // console.log('set chat[0] as selectedChat',{selectedChat})
+            // console.log('set chat[0] as selectedChat',{selectedChat})
         };
 
         return () => {
@@ -81,10 +81,10 @@ const MessageConversation = () => {
 
     useEffect(() => {
 
-        // // console.log("selectedChat", selectedChat)
-        // // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users.find(user => user !== user_id).personal_info.name)
-        // // console.log(user_id)
-        // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users?.find(user => user._id !== user_id)?.personal_info.name)
+        // console.log("selectedChat", selectedChat)
+        // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users.find(user => user !== user_id).personal_info.name)
+        // console.log(user_id)
+        // console.log("selectedChat opposite user name", selectedChat && selectedChat.users?.find(user => user._id !== user_id)?.personal_info.name)
 
         if (inputRef.current) {
             inputRef.current.focus();
@@ -92,9 +92,9 @@ const MessageConversation = () => {
 
         if (selectedChat && selectedChatCompare) {
             socket.emit("chat closed", selectedChatCompare);
-            // // console.log('chat closed')
+            // console.log('chat closed')
             socket.emit("leave chat", selectedChatCompare);
-            // // console.log('leave chat')
+            // console.log('leave chat')
         }
 
         fetchMessages();
@@ -106,7 +106,7 @@ const MessageConversation = () => {
         if (socket) {
             socket.on("message recieved", (newMessageReceived) => {
                 if (selectedChat && selectedChat._id === newMessageReceived.chat._id) {
-                    // // console.log(`newMessageReceived`,newMessageReceived)
+                    // console.log(`newMessageReceived`,newMessageReceived)
                     setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
                     updateUser2LastSeenMessage(newMessageReceived);
                 }
@@ -127,7 +127,7 @@ const MessageConversation = () => {
         if (selectedChat) {
             setLoading(true);
         
-            // // console.log(selectedChat._id)
+            // console.log(selectedChat._id)
 
             await axios.get(`${server}/message/get-all-messages/${selectedChat._id}`,
             { 
@@ -137,7 +137,7 @@ const MessageConversation = () => {
                 }
             })
             .then(({ data: { messages } }) => {
-                // // console.log("messages",messages)
+                // console.log("messages",messages)
                 
                 setMessages(messages);
                 setLoading(false);
@@ -145,7 +145,7 @@ const MessageConversation = () => {
                 socket.emit("join chat", selectedChat._id);
             })
             .catch(err => {
-                // console.log(err.response)
+                console.log(err.response)
             })
 
         } else {
@@ -161,7 +161,7 @@ const MessageConversation = () => {
 
         formData.chat = selectedChat._id
 
-        // // console.log(formData)
+        // console.log(formData)
         if (formData.chat && (formData.text && formData.image)) {
             toast.error("You can only send either a text or an image at a time")
             return
@@ -198,7 +198,7 @@ const MessageConversation = () => {
 
             })
             .catch(err => {
-                // console.log(err)
+                console.log(err)
             })
         }
     }
@@ -215,7 +215,7 @@ const MessageConversation = () => {
             uploadImage(img)
             .then((imgUrl) => {
 
-                // // console.log(imgUrl)
+                // console.log(imgUrl)
 
                 if(imgUrl) {
 
@@ -224,19 +224,19 @@ const MessageConversation = () => {
                         image: imgUrl,
                     }));
 
-                    // // console.log(`On the upload image function: `, imgUrl)
+                    // console.log(`On the upload image function: `, imgUrl)
                     toast.dismiss(loadingToast)
                     toast.success("Uploaded")
                     // sendImageRef.current.src = imgUrl
 
                     // formData.pic = imgUrl
 
-                    // // console.log("avatar1", avatar)
+                    // console.log("avatar1", avatar)
                 }
             })
             .catch(err => {
                 toast.dismiss(loadingToast)
-                // console.log(err)
+                console.log(err)
                 return toast.error(err)
             })
         }
@@ -245,7 +245,7 @@ const MessageConversation = () => {
 
     const updateLastSeenMessage = async (message) => {
         
-        // // console.log("updateLastSeenMessage message:", message)
+        // console.log("updateLastSeenMessage message:", message)
 
         await axios.put(`${server}/chat/update-last-seen-message`,
         {
@@ -259,11 +259,11 @@ const MessageConversation = () => {
             }
         })
         .then(({ data: { chat } }) => {
-            // // console.log("updateLastSeenMessage chat",chat)
+            // console.log("updateLastSeenMessage chat",chat)
             // setLastMessage(chat.latestMessage)
         })
         .catch(err => {
-            // console.log(err.response)
+            console.log(err.response)
         })
     }
 
@@ -281,11 +281,11 @@ const MessageConversation = () => {
                 }
             })
             .then(({ data: { chat } }) => {
-                // // console.log("chat",chat)
+                // console.log("chat",chat)
                 // setLastMessage(chat.latestMessage)
             })
             .catch(err => {
-                // console.log(err.response)
+                console.log(err.response)
             })
     };
 

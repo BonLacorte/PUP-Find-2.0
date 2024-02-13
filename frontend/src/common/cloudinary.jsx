@@ -10,13 +10,13 @@ export const uploadImage = async (img) => {
 
     await axios.post(`${server}`+ "/upload" , formData).
     then(({ data }) => {
-        // console.log(`value of data`, data)
-        // console.log(`value of data.img`, data.img)
+        console.log(`value of data`, data)
+        console.log(`value of data.img`, data.img)
         imgUrl = data.img
-        // console.log(`value of imgUrl`, imgUrl)
+        console.log(`value of imgUrl`, imgUrl)
     }).catch(({ response }) => {
         // toast.error(response.data.error)
-        // console.log(`value of response.data.error`, response.data.error)
+        console.log(`value of response.data.error`, response.data.error)
     })
 
     return imgUrl;

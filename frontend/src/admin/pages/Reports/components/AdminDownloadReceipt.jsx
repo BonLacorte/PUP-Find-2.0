@@ -44,8 +44,8 @@ const AdminDownloadReceipt = ({ type, reportId, setOpen }) => {
                 // toPDF = pdf.toPDF;
                 // targetRef = pdf.targetRef;
 
-                // console.log(report.partner_report.report_info.creatorId.personal_info.uid)
-                // // console.log("report.partner_report.report_info.creatorId.peronal_info.uid:",report.partner_report.report_info.creatorId.peronal_info.uid)
+                console.log(report.partner_report.report_info.creatorId.personal_info.uid)
+                // console.log("report.partner_report.report_info.creatorId.peronal_info.uid:",report.partner_report.report_info.creatorId.peronal_info.uid)
 
                 setReport(report);    
                 setLoading(false);

@@ -53,7 +53,7 @@ const AdminReportPage = ({ type }) => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(( {data: {reports}}) => {
-            // // console.log("reports",reports)
+            // console.log("reports",reports)
             let filteredData
 
             if (type === 'MissingReport') {
@@ -84,7 +84,7 @@ const AdminReportPage = ({ type }) => {
 
         })
         .catch (error => {
-            // console.log(error)
+            console.log(error)
             setError(error)
         })
     }
@@ -106,11 +106,11 @@ const AdminReportPage = ({ type }) => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(({data}) => {
-            // // console.log(data)
+            // console.log(data)
             toast.success("Report deleted successfully")
             getAllReports()
         }).catch(err => {
-            // console.log(err.response)
+            console.log(err.response)
             toast.error("Error deleting report")
         })
         // FIX THIS
@@ -186,15 +186,15 @@ const AdminReportPage = ({ type }) => {
 
     const handleDrawer = (report, form_type) => {
 
-        // // console.log("handleDrawer report: ",report.id)
+        // console.log("handleDrawer report: ",report.id)
 
         if (report) {
             setChosenReport(report.id)
         }
 
-        // // console.log("report",report.creatorId.id)
+        // console.log("report",report.creatorId.id)
 
-        // // console.log("report.report_info.creatorId._id",report.report_info.creatorId._id)
+        // console.log("report.report_info.creatorId._id",report.report_info.creatorId._id)
 
         if (form_type === 'delete') {
             setDrawerTitle('Delete Report')
@@ -351,7 +351,7 @@ const AdminReportPage = ({ type }) => {
                                 <button
                                     onClick={() => {
                                         navigate(`/admin/dash/reports/match/${params.row.original.id}`, {state: { report: params.row.original}})
-                                        // // console.log("params.row.original",params.row.original)
+                                        // console.log("params.row.original",params.row.original)
                                     }}
                                     className="bg-green-500 text-white font-bold py-1 px-2 rounded mr-2 border 
                                     hover:bg-green-700 transition duration-200"

@@ -10,7 +10,7 @@ const router = express.Router();
 // Dashboard - monthly missing report counts in a year
 router.get("/counts/:year", catchAsyncErrors(async (req, res, next) => {
     
-    // // console.log(req.params.year)
+    // console.log(req.params.year)
     const year = parseInt(req.params.year); // Parse the year from the URL parameter
     const startOfYear = new Date(year, 0, 1); // January 1st of the selected year
     const endOfYear = new Date(year, 11, 31, 23, 59, 59); // December 31st of the selected year
@@ -25,7 +25,7 @@ router.get("/counts/:year", catchAsyncErrors(async (req, res, next) => {
         }
         /* Add more filters based on your data structure if needed */
     }).then((reports) => {
-        // // console.log("counts - reports: ",reports)
+        // console.log("counts - reports: ",reports)
          // Function to process data and calculate counts for each month
         let processData = (reports) => {
             // Initialize an object to store counts for each month
@@ -65,7 +65,7 @@ router.get("/counts/:year", catchAsyncErrors(async (req, res, next) => {
 
                 return monthA - monthB;
             });
-            // // console.log(`formattedData`, formattedData)
+            // console.log(`formattedData`, formattedData)
             return formattedData;
         };
 
@@ -80,7 +80,7 @@ router.get("/counts/:year", catchAsyncErrors(async (req, res, next) => {
 // Dashboard - Get Report Counts
 router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
 
-    // // console.log("req.user:",req.user)
+    // console.log("req.user:",req.user)
 
     // let admin  
 
@@ -88,12 +88,12 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
     .populate('admin_info')
     // .then((user) => {
     //     // admin = user
-    //     // // console.log("Admin", user)
+    //     // console.log("Admin", user)
     // })
 
-    // // console.log("let admin", admin)
-    // // console.log("admin.admin_info.office_location", admin.admin_info.office_location)
-    // // console.log("admin.personal_info.office_location", admin.personal_info.office_location)
+    // console.log("let admin", admin)
+    // console.log("admin.admin_info.office_location", admin.admin_info.office_location)
+    // console.log("admin.personal_info.office_location", admin.personal_info.office_location)
 
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
@@ -102,7 +102,7 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
         "report_info.type": 'MissingReport',
         ...(startDate && endDate ? { createdAt: { $gte: startDate, $lte: endDate } } : {}),
     }).then( async (reports) => {
-        // // console.log({reports})
+        // console.log({reports})
 
         
         let locationCounts = {};
@@ -110,7 +110,7 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
         
         // Calculate location counts
         reports.forEach((report) => {
-            // // // console.log(report)
+            // // console.log(report)
             
             const { report_info: { location } } = report;
             if (locationCounts[location]) {
@@ -119,7 +119,7 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
                 locationCounts[location] = 1;
             }
         });
-        // // // console.log(locationCounts)
+        // // console.log(locationCounts)
 
         // Calculate user specifications counts
         for (const report of reports) {
@@ -127,7 +127,7 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
             //     "personal_info.uid": report.report_info.creatorId.personal_info.uid,
             // });
             const creator = await User.findById(report.report_info.creatorId);
-            // console.log('creator', creator)
+            console.log('creator', creator)
             if (creator && creator.personal_info.specification) {
                 if (userSpecifications[creator.personal_info.specification]) {
                     userSpecifications[creator.personal_info.specification]++;
@@ -178,7 +178,7 @@ router.get("/counts", verifyJWT, catchAsyncErrors(async (req, res, next) => {
             ...(startDate && endDate ? { createdAt: { $gte: startDate, $lte: endDate } } : {}),
         });
 
-        // // console.log(
+        // console.log(
         //     "missingReportCount: ", missingReportCount,
         //     "claimedReportCount: ", claimedReportCount,
         //     "claimableReportCount: ", claimableReportCount,

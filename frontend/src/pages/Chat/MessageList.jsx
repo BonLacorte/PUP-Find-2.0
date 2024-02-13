@@ -36,7 +36,7 @@ const MessageList = ({ fetchAgain }) => {
         
         if (socket) {
             socket.on("message recieved", (newMessageReceived) => {
-                // // console.log('message recieved newMessageReceived:', newMessageReceived)
+                // console.log('message recieved newMessageReceived:', newMessageReceived)
                 getChats()
             });
         }
@@ -45,8 +45,8 @@ const MessageList = ({ fetchAgain }) => {
         if (socket) {
             socket.on("update chat list", (newMessageReceived) => {
                 getChats()
-                // // console.log(`update chat list newMessageReceived`,newMessageReceived)
-                // // console.log(`update chat list chats`,chats)
+                // console.log(`update chat list newMessageReceived`,newMessageReceived)
+                // console.log(`update chat list chats`,chats)
             });
         }
         return () => {
@@ -109,10 +109,10 @@ const MessageList = ({ fetchAgain }) => {
 
     const updateLastSeenChat = async (chat) => {
 
-        // // console.log("updateLastSeenChat - value of chat:", chat)
+        // console.log("updateLastSeenChat - value of chat:", chat)
 
-        // // console.log(selectedChat._id, "updateLastSeenChat - selectedChat._id")
-        // // console.log(chat._id, "updateLastSeenChat - chat._id")
+        // console.log(selectedChat._id, "updateLastSeenChat - selectedChat._id")
+        // console.log(chat._id, "updateLastSeenChat - chat._id")
 
         await axios.post(`${server}/chat/last-chat-seen`, {
             chatId: chat._id,
@@ -123,11 +123,11 @@ const MessageList = ({ fetchAgain }) => {
             }
         })
         .then(({ data: { user } }) => {
-            // // console.log("user", user)
-            // // console.log("look at the lastChatSeen:", user)
+            // console.log("user", user)
+            // console.log("look at the lastChatSeen:", user)
         })
         .catch(err => {
-            // console.log(err.response)
+            console.log(err.response)
         })
     }
 
@@ -173,9 +173,9 @@ const MessageList = ({ fetchAgain }) => {
                                 onClick={() => {
                                     // getChats()
                                     // setSelectedChat(chat)
-                                    // // console.log("Message List",chat.users && chat.users.filter(user => user))
-                                    // // console.log(user_info, "user_info")
-                                    // console.log("Opposite User",chat.users && chat.users.filter(user => user._id !== user_id)[0].personal_info.pic)
+                                    // console.log("Message List",chat.users && chat.users.filter(user => user))
+                                    // console.log(user_info, "user_info")
+                                    console.log("Opposite User",chat.users && chat.users.filter(user => user._id !== user_id)[0].personal_info.pic)
                                     handleChatClick(chat)
 
                                 }}

@@ -10,13 +10,13 @@ const router = express.Router();
 // Chat - Create Conversation
 router.post("/create-new-conversation", verifyJWT, catchAsyncErrors( async (req, res) => {
 
-    // // console.log(`create-new-conversation req.body`,req.body)
-    // // console.log("value of req.user", req.user)
+    // console.log(`create-new-conversation req.body`,req.body)
+    // console.log("value of req.user", req.user)
     const { chatName, user, report_type, admin_id } = req.body
 
     let opposite_user
 
-    // console.log(opposite_user)
+    console.log(opposite_user)
 
     let users = []
     let client_user
@@ -45,9 +45,9 @@ router.post("/create-new-conversation", verifyJWT, catchAsyncErrors( async (req,
             client_user = opposite_user._id
             if (report_type === "MissingReport"){
                 admin_user = admin_id
-                // console.log("MISSING REPORT ADMIN admin_id",admin_id)
+                console.log("MISSING REPORT ADMIN admin_id",admin_id)
             } else {
-                // console.log("FOUND REPORT ADMIN admin_id",admin_id)
+                console.log("FOUND REPORT ADMIN admin_id",admin_id)
                 admin_user = req.user
             }
             users.push(admin_user, client_user)
@@ -80,7 +80,7 @@ router.post("/create-new-conversation", verifyJWT, catchAsyncErrors( async (req,
                 });
             })
             .catch((err) => {
-                // console.log(err)
+                console.log(err)
                 return res.status(500).json({ error: err.message });
             });
     }
@@ -92,7 +92,7 @@ router.post("/create-new-conversation", verifyJWT, catchAsyncErrors( async (req,
 // Chat - Get Conversation
 router.get("/get-conversation", verifyJWT, catchAsyncErrors( async (req, res) => {
 
-    // // console.log("req.user in get-conversation:", req.user)
+    // console.log("req.user in get-conversation:", req.user)
 
     await Chat.find({
         users: { $in: [req.user], },
@@ -107,11 +107,11 @@ router.get("/get-conversation", verifyJWT, catchAsyncErrors( async (req, res) =>
     })
     .sort({ updatedAt: -1, createdAt: -1 })
     .then((chats) => {
-        // // console.log(chats)
+        // console.log(chats)
         return res.status(200).json({ chats });
     })
     .catch((err) => {
-        // console.log(err)
+        console.log(err)
         return res.status(500).json({ error: err.message });
     });
 
@@ -122,7 +122,7 @@ router.put("/update-last-seen-message", verifyJWT, catchAsyncErrors( async (req,
 
     try {
 
-        // // console.log("req.user in update-last-seen-message:", req.user)
+        // console.log("req.user in update-last-seen-message:", req.user)
     
         const { chatId, messageId, messageText, messageImage } = req.body
     
@@ -148,7 +148,7 @@ router.put("/update-last-seen-message", verifyJWT, catchAsyncErrors( async (req,
             (item) => item.user.toString() === req.user);
     
     
-        // // console.log("lastSeenMessageUser: ",lastSeenMessageUser)
+        // console.log("lastSeenMessageUser: ",lastSeenMessageUser)
 
         if (lastSeenMessageUser !== -1) {
             // If the user already has a lastSeenMessage entry, update it
@@ -163,14 +163,14 @@ router.put("/update-last-seen-message", verifyJWT, catchAsyncErrors( async (req,
             });
         }
 
-        // // console.log("Chat after update-last-seen-message:",chat)
+        // console.log("Chat after update-last-seen-message:",chat)
     
          // Save the updated chat
         await chat.save();
         res.status(200).json(chat)
 
     } catch (error) {
-        // console.log("update-last-seen-message error:", error.message)
+        console.log("update-last-seen-message error:", error.message)
         return res.status(500).json({ error: error.message });
     }
 
@@ -181,7 +181,7 @@ router.put("/update-last-seen-message", verifyJWT, catchAsyncErrors( async (req,
 // Chat - Last Chat Seen
 router.post("/last-chat-seen", verifyJWT, catchAsyncErrors( async (req, res) => {
 
-    // console.log("req.user", req.user)
+    console.log("req.user", req.user)
 
     const { chatId } = req.body
 
@@ -191,17 +191,17 @@ router.post("/last-chat-seen", verifyJWT, catchAsyncErrors( async (req, res) => 
             if (!user.lastChatSeen) {
                 user.lastChatSeen = chatId;
                 await user.save();
-                // console.log(user)
+                console.log(user)
                 return res.status(200).json({ user });
             }
 
             user.lastChatSeen = chatId;
             await user.save();
-            // console.log("user", user);
+            console.log("user", user);
             return res.status(200).json({ user });
         })
         .catch((err) => {
-            // console.log(err);
+            console.log(err);
             return res.status(500).json({ error: err.message });
         });
 }))

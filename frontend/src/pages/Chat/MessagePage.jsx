@@ -33,7 +33,7 @@ const MessagePage = () => {
         })
         .then(({ data: { chats } }) => {
             
-            // console.log("chats",chats)
+            console.log("chats",chats)
 
             // Separate chats into two arrays: with latest message and without latest message
             const chatsWithLatestMessage = chats.filter(chat => chat.latestMessage);
@@ -49,8 +49,8 @@ const MessagePage = () => {
             let sortedChats
 
             if ( user_info.personal_info.access === "Admin" ) {
-                // console.log("chatsWithLatestMessage", chatsWithLatestMessage)
-                // console.log("chatsWithoutLatestMessage", chatsWithoutLatestMessage)
+                console.log("chatsWithLatestMessage", chatsWithLatestMessage)
+                console.log("chatsWithoutLatestMessage", chatsWithoutLatestMessage)
                 sortedChats = [...chatsWithLatestMessage]
             } else {
                 sortedChats = chatsWithLatestMessage.concat(chatsWithoutLatestMessage)
@@ -65,24 +65,24 @@ const MessagePage = () => {
             // Concatenate the two arrays, placing chats without latest messages at the end
             // const sortedChats = [chatsWithLatestMessage, chatsWithoutLatestMessage];
 
-            // // console.log(sortedChats, "sortedChats")
+            // console.log(sortedChats, "sortedChats")
 
             setChats(sortedChats);
 
-            // // console.log("getChatsssssssssssssssssssss")
+            // console.log("getChatsssssssssssssssssssss")
 
             setLoading(false)
             setSuccess(true)
 
         })
         .catch(err => {
-            // console.log(err.response)
+            console.log(err.response)
         })
     }
 
     useEffect(() => {
 
-        // // console.log("access_token",access_token)
+        // console.log("access_token",access_token)
 
         
 

@@ -18,7 +18,7 @@ let facebookRegex = /^(?:http(?:s)?:\/\/)?(?:www\.)?facebook\.com\/([a-zA-Z0-9_]
 
 const formatDatatoSend = (user) => {
 
-    // console.log("value of user: ",user)
+    console.log("value of user: ",user)
 
     const access_token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' })
 
@@ -138,10 +138,10 @@ router.post("/admin-register", catchAsyncErrors( async (req, res) => {
                 if (err.code === 11000) {
                     return res.status(403).json({ error: "Email already exists" });
                 }
-                // console.log(err)
+                console.log(err)
                 return res.status(500).json({ error: err.message });
             });
-        // console.log(hashed_password)
+        console.log(hashed_password)
     })
     return res.status(200)
 }))
@@ -259,17 +259,17 @@ router.post("/register", catchAsyncErrors( async (req, res) => {
                 if (err.code === 11000) {
                     return res.status(403).json({ error: "Email already exists" });
                 }
-                // console.log(err)
+                console.log(err)
                 return res.status(500).json({ error: err.message });
             });
-        // console.log(hashed_password)
+        console.log(hashed_password)
     })
     return res.status(200)
 }))
 
 // User - Login
 router.post("/login", catchAsyncErrors((req, res) => {
-    // // console.log(`hello `,req.body)
+    // console.log(`hello `,req.body)
 
     let { email, password, access } = req.body
 
@@ -285,13 +285,13 @@ router.post("/login", catchAsyncErrors((req, res) => {
                 }
 
                 if (result) {
-                    // // console.log("Login user: ", user)
+                    // console.log("Login user: ", user)
                     sendRefreshToken(res, createRefreshToken(user));
                     let access_token = createAccessToken(user)
-                    // // console.log(access_token)
+                    // console.log(access_token)
                     return res.status(200).json({ access_token})
                     // // return res.status(200).json(formatDatatoSend(user))
-                    // // console.log(user.id)
+                    // console.log(user.id)
 
                 } else {
                     return res.status(403).json({ error: "Incorrect password" })
@@ -299,7 +299,7 @@ router.post("/login", catchAsyncErrors((req, res) => {
             })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 }))
@@ -309,18 +309,18 @@ router.post("/login", catchAsyncErrors((req, res) => {
 // router.post("/revoke-refresh-token", verifyJWT, catchAsyncErrors(async (req, res) => {
 router.post("/revoke-refresh-token", catchAsyncErrors(async (req, res) => {
 
-    // // console.log("req.user", req.user)
+    // console.log("req.user", req.user)
 
     let { userId } = req.body
 
-    // console.log("revoke-refresh-token: userId", userId)
+    console.log("revoke-refresh-token: userId", userId)
 
     await User.findByIdAndUpdate(userId, { $inc: { token_version: 1 } })
         .then(() => {
             return res.status(200).json({ "success": true })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error1": err.message })
         })
 }))
@@ -330,11 +330,11 @@ router.post("/revoke-refresh-token", catchAsyncErrors(async (req, res) => {
 router.get("/get-all-active-admin", catchAsyncErrors((req, res) => {
     User.find({ "personal_info.access": "Admin", "personal_info.active": true })
         .then((admins) => {
-            // console.log("admins",admins)
+            console.log("admins",admins)
             return res.status(200).json({ admins })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 }))
@@ -344,11 +344,11 @@ router.get("/get-all-active-admin", catchAsyncErrors((req, res) => {
 router.get("/get-all-admin", catchAsyncErrors((req, res) => {
     User.find({ "personal_info.access": "Admin" })
         .then((admins) => {
-            // console.log(admins)
+            console.log(admins)
             return res.status(200).json({ admins })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 }))
@@ -361,11 +361,11 @@ router.get("/get-user-info/:user_id", verifyJWT, catchAsyncErrors((req, res) => 
 
     User.findById(user_id)
         .then((user) => {
-            // console.log("user",user)
+            console.log("user",user)
             return res.status(200).json({ user })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 }))
@@ -376,8 +376,8 @@ router.get("/get-all-users", catchAsyncErrors( async (req, res) => {
 
     const { search, category } = req.query;
 
-    // console.log("search",search)
-    // console.log("category",category)
+    console.log("search",search)
+    console.log("category",category)
 
     const keywordFilter = search
         ? {
@@ -394,7 +394,7 @@ router.get("/get-all-users", catchAsyncErrors( async (req, res) => {
 
     await User.find({ ...filters, "personal_info.access": { $ne: "Admin" } })
     .then((users) => {
-        // console.log("users",users)
+        console.log("users",users)
         res.status(200).json({users});
     });
 }))
@@ -404,15 +404,15 @@ router.get("/get-all-users", catchAsyncErrors( async (req, res) => {
 // User - Get user information by creator id
 router.get("/get-user-by-creator-id/:creator_id", catchAsyncErrors((req, res) => {
     let { creator_id } = req.params
-    // console.log("creator_id",creator_id)
+    console.log("creator_id",creator_id)
 
     User.findOne({ "personal_info.uid": creator_id })
         .then((user) => {
-            // console.log("get-user-info-by-creator-id - user",user)
+            console.log("get-user-info-by-creator-id - user",user)
             return res.status(200).json({ user })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 
@@ -422,15 +422,15 @@ router.get("/get-user-by-creator-id/:creator_id", catchAsyncErrors((req, res) =>
 // User - Get user information by user id
 router.get("/get-user-by-user-id/:user_id", catchAsyncErrors((req, res) => {
     let { user_id } = req.params
-    // console.log("user_id",user_id)
+    console.log("user_id",user_id)
 
     User.findById(user_id)
         .then((user) => {
-            // console.log("get-user-info-by-user-id - user",user)
+            console.log("get-user-info-by-user-id - user",user)
             return res.status(200).json({ user })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 
@@ -441,7 +441,7 @@ router.get("/get-user-by-user-id/:user_id", catchAsyncErrors((req, res) => {
 router.put("/update-user-info/:user_id", catchAsyncErrors(async(req, res) => {
     let { user_id } = req.params
 
-    // console.log("update-user user_id:", user_id)
+    console.log("update-user user_id:", user_id)
 
     let { name, uid, email, access, membership, specification, phone_number, twitter_link, facebook_link, pic, password, new_password } = req.body
 
@@ -493,7 +493,7 @@ router.put("/update-user-info/:user_id", catchAsyncErrors(async(req, res) => {
     //     }
     //     // save_new_password = new_password;
 
-    //     // console.log("new_password:",new_password)
+    //     console.log("new_password:",new_password)
 
     //     bcrypt.hash(new_password, 10, async (err, hashed_password) => {
     //         save_new_password = hashed_password
@@ -515,11 +515,11 @@ router.put("/update-user-info/:user_id", catchAsyncErrors(async(req, res) => {
         "social_info.facebook_link": facebook_link
     })
     .then((user) => {
-        // console.log("user",user)
+        console.log("user",user)
         return res.status(200).json({ user })
     })
     .catch(err => {
-        // console.log(err.message)
+        console.log(err.message)
         return res.status(500).json({ "error": err.message })
     })
 }))
@@ -530,14 +530,14 @@ router.delete("/delete-user/:user_id", catchAsyncErrors(async (req, res, next) =
 
     let { user_id } = req.params
 
-    // console.log("user_id", user_id)
+    console.log("user_id", user_id)
 
     await Report.findByIdAndDelete(user_id)
         .then((user) => {
             return res.status(200).json({ user })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
 }))

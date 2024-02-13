@@ -28,7 +28,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-// console.log(process.env.NODE_ENV)
+console.log(process.env.NODE_ENV)
 
 
 connectDB()
@@ -53,7 +53,7 @@ mongoose.set('strictQuery', false);
 
 const server = app.listen(
     PORT, () => {
-        // console.log(`Server running on PORT ${PORT}...`)
+        console.log(`Server running on PORT ${PORT}...`)
     }
 );
 
@@ -83,29 +83,29 @@ const io = new Server(server, {
 const activeUsersByChat = {}; // Add this variable outside the io.on('connection', ...) block
 // Set up Socket.io connections
 io.on('connection', socket => {
-    // // console.log('Connected to Socket.io');
+    // console.log('Connected to Socket.io');
 
     socket.on("setup", (userId) => {
         // socket.join(userData._id)
         socket.join(userId)
-        // // console.log(userId)
+        // console.log(userId)
         socket.emit("connected")
     });
 
     socket.on("join chat", (room) => {
         socket.join(room);
-        // // console.log("User Joined Room: " + room);
+        // console.log("User Joined Room: " + room);
     });
 
     socket.on("leave chat", (room) => {
         socket.leave(room);
-        // // console.log("User Left Room: " + room);
+        // console.log("User Left Room: " + room);
     })
 
     // Signal from client when user opens a chat
     socket.on("chat opened", (chatId) => {
         activeUsersByChat[chatId] = socket.userId;
-        // // console.log("Chat opened", {activeUsersByChat})
+        // console.log("Chat opened", {activeUsersByChat})
     });
 
     // Signal from client when user closes a chat
@@ -114,7 +114,7 @@ io.on('connection', socket => {
             
             delete activeUsersByChat[chatId];
         }
-        // // console.log("Chat closed", {activeUsersByChat})
+        // console.log("Chat closed", {activeUsersByChat})
     });
 
     socket.on("typing", (room) => socket.in(room).emit("typing"));
@@ -123,13 +123,13 @@ io.on('connection', socket => {
     socket.on("new message", (newMessageRecieved) => {
         var chat = newMessageRecieved.chat;
 
-        // // console.log("new message newMessageRecieved:", newMessageRecieved)
-        // // console.log("*****************************")
-        // // console.log("new message chat:", chat)
-        // // console.log("*****************************")
-        // // console.log("new message chat.users:", chat.users)
+        // console.log("new message newMessageRecieved:", newMessageRecieved)
+        // console.log("*****************************")
+        // console.log("new message chat:", chat)
+        // console.log("*****************************")
+        // console.log("new message chat.users:", chat.users)
 
-        if (!chat.users) return // // console.log("chat.users not defined");
+        if (!chat.users) return // console.log("chat.users not defined");
 
         // For seen function
         chat.users.forEach((user) => {
@@ -138,10 +138,10 @@ io.on('connection', socket => {
 
             // If the `user` is not the sender
             socket.in(user._id).emit("message recieved", newMessageRecieved);
-            // // console.log("*****************************")
-            // // console.log("message recieved user._id",user._id)
-            // // console.log("message recieved newMessageRecieved", newMessageRecieved)
-            // // console.log("*****************************")
+            // console.log("*****************************")
+            // console.log("message recieved user._id",user._id)
+            // console.log("message recieved newMessageRecieved", newMessageRecieved)
+            // console.log("*****************************")
 
             // Add this block to update User2's last seen message
             // if (user._id == chat.users[1]._id) {
@@ -153,12 +153,12 @@ io.on('connection', socket => {
         // For real-time updating of ChatList's list of chat conversation's latest messages whether the user are online of not and whether the user is the sender of the latest message or not
         chat.users.forEach((user) => {
             socket.in(user._id).emit("update chat list", newMessageRecieved);
-            // // console.log("update chat list newMessageRecieved", newMessageRecieved)
+            // console.log("update chat list newMessageRecieved", newMessageRecieved)
         })
     });
 
     socket.off("setup", (userId) => {
-        // // console.log("USER DISCONNECTED");
+        // console.log("USER DISCONNECTED");
         // socket.leave(userData._id);
         socket.leave(userId);
     });
@@ -173,19 +173,19 @@ app.post("/upload", upload.single('img'), async (req, res, next) => {
 
     try {
         
-        // console.log("FormData:", req.body);
+        console.log("FormData:", req.body);
 
         const result = await cloudinary.uploader.upload(req.file.path, { folder: "blog" })
         
-        // console.log("result:", result)
+        console.log("result:", result)
 
-        // console.log(`result.secure_url: `, result.secure_url)
-        // // console.log(`result.secure_url: `, result.url)
+        console.log(`result.secure_url: `, result.secure_url)
+        // console.log(`result.secure_url: `, result.url)
         return res.status(200).json({ "img": result.secure_url })
         // return res.status(200).json({ "img": result.url })
     }
     catch(err) {
-        // console.log(err)
+        console.log(err)
         next(err);
         return res.status(500).json({ "error": err.message })
     }
@@ -193,19 +193,19 @@ app.post("/upload", upload.single('img'), async (req, res, next) => {
 
 app.post("/refresh_token", async (req, res) => {
 
-    // // console.log("refresh-token req.headers",req.headers)
+    // console.log("refresh-token req.headers",req.headers)
     
     const token = req.cookies.jid;
-    // // console.log("refresh-token req.jid",req.cookies.jid)
-    // // console.log("token",token)
+    // console.log("refresh-token req.jid",req.cookies.jid)
+    // console.log("token",token)
     if (!token) return res.status(401).json({ "error": "You are not authenticated 1", access_token: ""})
 
     let decoded = null;
     try {
         decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
-        // // console.log("decoded1",decoded)
+        // console.log("decoded1",decoded)
     } catch (err) {
-        // console.log(err)
+        console.log(err)
         return res.status(401).json({ "error": "You are not authenticated 2", access_token: "" })
     }
 
@@ -222,7 +222,7 @@ app.post("/refresh_token", async (req, res) => {
 
             // sendRefreshToken(res, createRefreshToken(user));
             // let access_token = createAccessToken(user)
-            // // console.log(access_token)
+            // console.log(access_token)
             // return res.status(200).json(access_token)
 
             if (user.token_version !== decoded.token_version) {
@@ -234,7 +234,7 @@ app.post("/refresh_token", async (req, res) => {
             return res.json({ ok: true, access_token: createAccessToken(user), user_id: decoded.userId, user_info })
         })
         .catch(err => {
-            // console.log(err.message)
+            console.log(err.message)
             return res.status(500).json({ "error": err.message })
         })
 })

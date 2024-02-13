@@ -14,7 +14,7 @@ export const getAllAdminLocation = () => {
                 admins.forEach(admin => {
                     officeLocation = admin.personal_info.office_location;
                     locations[officeLocation] = officeLocation;
-                    // console.log('locations =>', locations)
+                    console.log('locations =>', locations)
                 });
             }
             return locations

@@ -1,6 +1,6 @@
 export const getSenderInfo = (chat, user_id) => {
     
-    // // console.log("chat", chat)
+    // console.log("chat", chat)
 
     const { sender_id, sender_name, sender_image } = chat
     if (sender_id === user_id) {
@@ -36,19 +36,19 @@ export const getSenderImage = (chat, user_id) => {
 
 export const getLatestMessage = (chat, user_id) => {
 
-    // // console.log("getLatestMessage chat:", chat)
+    // console.log("getLatestMessage chat:", chat)
 
     if (chat.latestMessage === null || chat.latestMessage === undefined) {
         return false
     } else {
         const matchedUser = chat.lastSeenMessage.filter((user) => {
-            // // console.log("user.user", user.user)
+            // console.log("user.user", user.user)
             return user.user === user_id
         })
-        // // console.log("matchedUser: ", matchedUser)
+        // console.log("matchedUser: ", matchedUser)
         if(matchedUser.length > 0) {
-            // // console.log("matchedUser[0].message", matchedUser[0].message)
-            // // console.log("chat.latestMessage._id", chat.latestMessage._id)
+            // console.log("matchedUser[0].message", matchedUser[0].message)
+            // console.log("chat.latestMessage._id", chat.latestMessage._id)
             return (matchedUser[0].message).toString() ===  (chat.latestMessage._id).toString()
         } else {
             return false

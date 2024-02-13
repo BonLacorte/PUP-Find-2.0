@@ -20,7 +20,7 @@ const AdminEditUser = () => {
 
     const getUserInfo = async () => {
         
-        // console.log("user_id",user_id)
+        console.log("user_id",user_id)
 
         await axios.get(`${server}/user/get-user-by-user-id/${user_id}`,
         { 
@@ -29,10 +29,10 @@ const AdminEditUser = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(({ data: {users} }) => {
-            // console.log("users",users)
+            console.log("users",users)
             setUserInfo(users)
         }).catch(err => {
-            // console.log(err.response)
+            console.log(err.response)
         })
 
     }
