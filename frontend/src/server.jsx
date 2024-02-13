@@ -1,2 +1,2 @@
-// export const server = "https://pupfind-server.onrender.com";
-export const server = "http://localhost:3500";
+export const server = "https://pupfind2.onrender.com";
+// export const server = "http://localhost:3500";
