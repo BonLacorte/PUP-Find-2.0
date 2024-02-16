@@ -452,7 +452,7 @@ const MessageConversation = () => {
             </div>
             {
                 open && (
-                    <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center rounded-xl border-8 border-red-700">
+                    <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center rounded-xl border-red-700">
                         <div className='justify-center items-center w-[80%] lg:w-[100%] bg-white rounded-3xl shadow p-4 overflow-hidden'>
                             <div className="w-full flex justify-end">
                                 <i

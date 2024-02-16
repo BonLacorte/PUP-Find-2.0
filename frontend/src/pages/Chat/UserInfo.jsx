@@ -96,7 +96,7 @@ const UserInfo = () => {
                                 
                                 <div className="flex flex-col items-center my-2">
                                     
-                                    <img src={opposite_user_info.personal_info.pic} className='w-[100px] h-[100px] border-gray-300' alt="" />
+                                    <img src={opposite_user_info.personal_info.pic} className='w-[100px] h-[100px] rounded-full border-gray-300' alt="" />
                                     
                                     <div className="mt-2 flex flex-col items-center ">
                                         <p className="font-semibold">{opposite_user_info.personal_info.name}</p>

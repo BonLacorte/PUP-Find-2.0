@@ -198,7 +198,7 @@ const AdminUsersPage = () => {
                             <i class="fi fi-sr-file-edit"></i>
                         </button> */}
 
-                        <button
+                        {/* <button
                             onClick={() => {
                                 handleDrawer(params.row.original, 'delete')
                             }}
@@ -206,7 +206,7 @@ const AdminUsersPage = () => {
                             hover:bg-red-700 transition duration-200"
                         >
                             <i class="fi fi-sr-trash"></i>
-                        </button>
+                        </button> */}
 
                         <button 
                             onClick={() => {

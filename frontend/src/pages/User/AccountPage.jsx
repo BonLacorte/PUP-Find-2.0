@@ -216,7 +216,9 @@ const AccountPage = () => {
                                                         userReports
                                                             .filter(report => report.report_info.type === "MissingReport" && report.report_info.status !== "Claimed")
                                                             .map((report, i) => (
-                                                                <div key={i} className='cursor-pointer'>
+                                                                <div key={i} className='cursor-pointer'
+                                                                    onClick={() => handleDrawer(report, "report_info")}
+                                                                >
                                                                     <ReportPostCard report={report} creator={profile}/>
                                                                 </div>
                                                             ))
