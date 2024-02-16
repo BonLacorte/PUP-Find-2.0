@@ -269,7 +269,6 @@ router.post("/register", catchAsyncErrors( async (req, res) => {
 
 // User - Login
 router.post("/login", catchAsyncErrors((req, res) => {
-    // console.log(`hello `,req.body)
 
     let { email, password, access } = req.body
 
@@ -285,14 +284,9 @@ router.post("/login", catchAsyncErrors((req, res) => {
                 }
 
                 if (result) {
-                    // console.log("Login user: ", user)
                     sendRefreshToken(res, createRefreshToken(user));
                     let access_token = createAccessToken(user)
-                    // console.log(access_token)
                     return res.status(200).json({ access_token})
-                    // // return res.status(200).json(formatDatatoSend(user))
-                    // console.log(user.id)
-
                 } else {
                     return res.status(403).json({ error: "Incorrect password" })
                 }

@@ -192,18 +192,13 @@ app.post("/upload", upload.single('img'), async (req, res, next) => {
 })
 
 app.post("/refresh_token", async (req, res) => {
-
-    // console.log("refresh-token req.headers",req.headers)
     
     const token = req.cookies.jid;
-    // console.log("refresh-token req.jid",req.cookies.jid)
-    // console.log("token",token)
     if (!token) return res.status(401).json({ "error": "You are not authenticated 1", access_token: ""})
 
     let decoded = null;
     try {
         decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
-        // console.log("decoded1",decoded)
     } catch (err) {
         console.log(err)
         return res.status(401).json({ "error": "You are not authenticated 2", access_token: "" })
@@ -217,13 +212,6 @@ app.post("/refresh_token", async (req, res) => {
             }
 
             const { personal_info: { password }, token_version, ...user_info } = user;
-
-
-
-            // sendRefreshToken(res, createRefreshToken(user));
-            // let access_token = createAccessToken(user)
-            // console.log(access_token)
-            // return res.status(200).json(access_token)
 
             if (user.token_version !== decoded.token_version) {
                 return res.status(401).json({ "error": "You are not authenticated 4", access_token: "" })
