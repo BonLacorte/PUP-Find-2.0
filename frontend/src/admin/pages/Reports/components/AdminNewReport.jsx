@@ -29,7 +29,7 @@ const AdminNewReport = ({ type, setOpen }) => {
     })
 
     
-    // console.log(user)
+    // // console.log(user)
     const [allAdminLocation, setAllAdminLocation] = useState([]);
     const [allAdmin, setAllAdmin] = useState();
 
@@ -57,11 +57,11 @@ const AdminNewReport = ({ type, setOpen }) => {
                     });
 
                     setAllAdmin(admins)
-                    console.log('allAdminLocationObject before', allAdminLocationObject)
+                    // console.log('allAdminLocationObject before', allAdminLocationObject)
 
                     setAllAdminLocation(allAdminLocationObject)
-                    console.log("allAdmin",allAdmin)
-                    console.log("allAdminLocation",allAdminLocation)
+                    // console.log("allAdmin",allAdmin)
+                    // console.log("allAdminLocation",allAdminLocation)
 
                     setLoading(false)
 
@@ -92,7 +92,7 @@ const AdminNewReport = ({ type, setOpen }) => {
     const handleReportLocation = (e) => {
         let selectedValue = e.target.value;
         formData.location = selectedValue
-        console.log('formData.location', formData.location)
+        // console.log('formData.location', formData.location)
     }
 
     const handleItemImagesUpload = (e) => {
@@ -119,7 +119,7 @@ const AdminNewReport = ({ type, setOpen }) => {
                 })
                 .catch((err) => {
                     toast.dismiss(loadingToast);
-                    console.log(err);
+                    // console.log(err);
                     return toast.error(err);
                 });
         }
@@ -150,14 +150,14 @@ const AdminNewReport = ({ type, setOpen }) => {
                     }
                 })
                 .then(({ data: { chat } }) => {
-                    console.log('chat', chat);
+                    // console.log('chat', chat);
                     toast.success('Chat conversation created successfully!');
 
                     setOpen(false)
                     window.location.reload(true); 
                 })
                 .catch(({ response }) => {
-                    console.log(response.data.error);
+                    // console.log(response.data.error);
                     toast.error(response.data.error);
                 });
             }
@@ -185,7 +185,7 @@ const AdminNewReport = ({ type, setOpen }) => {
                             },
                         })
                         .then(({ data: { chat } }) => {
-                            console.log('chat', chat);
+                            // console.log('chat', chat);
                             toast.success('Chat conversation created successfully!');
 
                             // navigate("/admin/dash")
@@ -193,13 +193,13 @@ const AdminNewReport = ({ type, setOpen }) => {
                             window.location.reload(true); 
                         })
                         .catch(({ response }) => {
-                            console.log(response.data.error);
+                            // console.log(response.data.error);
                             toast.error(response.data.error);
                         });
                     });
                 })
                 .catch(({ response }) => {
-                    console.log(response.data.error);
+                    // console.log(response.data.error);
                     toast.error(response.data.error);
                 });
             }
@@ -228,7 +228,7 @@ const AdminNewReport = ({ type, setOpen }) => {
             formData.status = 'Processing';
             formData.type = 'FoundReport';
         }
-        console.log(formData)
+        // console.log(formData)
         axios.post(`${server}`+"/report/create-report", formData, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
@@ -245,7 +245,7 @@ const AdminNewReport = ({ type, setOpen }) => {
         .catch(({ response }) => {
             e.target.classList.remove('disable')
             toast.dismiss(loadingToast)
-            console.log(response.data.error)
+            // console.log(response.data.error)
             toast.error(response.data.error)
         }).finally(() => {
             setSubmitting(false)

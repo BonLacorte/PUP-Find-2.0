@@ -30,7 +30,7 @@ router.post("/create-report", verifyJWT, catchAsyncErrors(async (req, res, next)
     
     
     let creatorId
-    // console.log(req.body)
+    // // console.log(req.body)
 
     let {
         item_name,
@@ -44,17 +44,17 @@ router.post("/create-report", verifyJWT, catchAsyncErrors(async (req, res, next)
         office_location_surrendered,
     } = req.body
 
-    // console.log("req.user:",req.user)
+    // // console.log("req.user:",req.user)
 
     let user = await User.findById({ _id: req.user })
 
-    // console.log("user:",user)
-    // console.log("user.personal_info.access:",user.personal_info.access)
+    // // console.log("user:",user)
+    // // console.log("user.personal_info.access:",user.personal_info.access)
 
     if (user.personal_info.access === "Admin") {
-        // console.log("creator:", creator)
+        // // console.log("creator:", creator)
         let user = await User.findOne({ "personal_info.uid": creator })
-        // console.log("user-user:", user)
+        // // console.log("user-user:", user)
         // if user is admin, find the clien user's id by uid
         // and assign it to creatorId
         creatorId = user._id
@@ -63,7 +63,7 @@ router.post("/create-report", verifyJWT, catchAsyncErrors(async (req, res, next)
         creatorId = req.user
     }
 
-    // console.log("create-report creatorId:",creatorId)
+    // // console.log("create-report creatorId:",creatorId)
 
     if (item_name && item_name.length < 2 && item_name.length > 30 ) {
         return res.status(403).json({ error: "Item name must be at least 2-30 letters long" })
@@ -122,13 +122,13 @@ router.post("/create-report", verifyJWT, catchAsyncErrors(async (req, res, next)
     report.save().then(report => {
         User.findOneAndUpdate({ _id: creatorId }, { $push : { "reports": report._id } })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             return res.status(500).json({ error: "Failed to push report to user" })
         })
         return res.status(200).json(report);
     })
     .catch(err => {
-        console.log(err.message)
+        // console.log(err.message)
         return res.status(500).json({ "error": err.message })
     }) 
 }))
@@ -165,13 +165,13 @@ router.get("/get-all-reports", catchAsyncErrors( async (req, res) => {
 
     const filters = { ...keywordFilter, ...reportTypeFilter };
 
-    // console.log("reportTypeFilter:", reportTypeFilter)
+    // // console.log("reportTypeFilter:", reportTypeFilter)
 
     await Report.find({ ...filters})
     .populate("report_info.creatorId", "personal_info social_info")
     .populate("partner_report")
     .then((reports) => {
-        // console.log("reports",reports)
+        // // console.log("reports",reports)
         res.status(200).json({reports});
     });
 }))
@@ -197,11 +197,11 @@ router.get("/get-report-info/:report_id", catchAsyncErrors(async (req, res) => {
             } else {
                 report = await report.populate("report_info.creatorId", "personal_info social_info")
             }
-            console.log("get-report-info - report", report);
+            // console.log("get-report-info - report", report);
             return res.status(200).json({ report });
         })
         .catch(err => {
-            console.log(err.message)
+            // console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
 }))
@@ -211,7 +211,7 @@ router.get("/get-all-reports-by-user/:user_id", verifyJWT, catchAsyncErrors(asyn
     
     let user_id = req.params.user_id
 
-    // console.log("get-all-reports-by-user - user_id",user_id)
+    // // console.log("get-all-reports-by-user - user_id",user_id)
 
     const reports = await Report.find({ "report_info.creatorId" : user_id })
         .populate("report_info.creatorId", "personal_info social_info")
@@ -220,7 +220,7 @@ router.get("/get-all-reports-by-user/:user_id", verifyJWT, catchAsyncErrors(asyn
         .sort({ createdAt: -1 })
         .then( async (reports) => {
             
-            // console.log("reports",reports)
+            // // console.log("reports",reports)
             // await reports.populate("report_info.creatorId", "personal_info social_info")
             return res.status(200).json({ reports })
         })
@@ -241,7 +241,7 @@ router.get("/get-all-reports-by-user/:user_id", verifyJWT, catchAsyncErrors(asyn
 //             return res.status(200).json({ report })
 //         })
 //         .catch(err => {
-//             console.log(err.message)
+//             // console.log(err.message)
 //             return res.status(500).json({ error: err.message });
 //         })
 // }))
@@ -251,7 +251,7 @@ router.put("/update-report-info/:report_id", catchAsyncErrors(async (req, res, n
 
     let { report_id } = req.params
 
-    // console.log("report_id:", report_id)
+    // // console.log("report_id:", report_id)
 
     let {
         item_name,
@@ -264,7 +264,7 @@ router.put("/update-report-info/:report_id", catchAsyncErrors(async (req, res, n
         office_location_surrendered,
     } = req.body
 
-    // console.log("req.body:",req.body)
+    // // console.log("req.body:",req.body)
 
     if (item_name && item_name.length < 2 && item_name.length > 30 ) {
         return res.status(403).json({ error: "Item name must be at least 2-30 letters long" })
@@ -305,7 +305,7 @@ router.put("/update-report-info/:report_id", catchAsyncErrors(async (req, res, n
             return res.status(200).json({ report })
         })
         .catch(err => {
-            console.log(err.message)
+            // console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
     }
@@ -316,14 +316,14 @@ router.delete("/delete-report/:report_id", catchAsyncErrors(async (req, res, nex
 
     let { report_id } = req.params
 
-    console.log("report_id", report_id)
+    // console.log("report_id", report_id)
 
     await Report.findByIdAndDelete(report_id)
         .then((report) => {
             return res.status(200).json({ report })
         })
         .catch(err => {
-            console.log(err.message)
+            // console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
 }))
@@ -334,8 +334,8 @@ router.put("/match-reports", verifyJWT, catchAsyncErrors(async (req, res, next) 
     // let { found_report_id } = req.params
     let { partner_missing_report_id, found_report_id } = req.body
 
-    // console.log("report_id", report_id)
-    // console.log("partner_report_id", partner_report_id)
+    // // console.log("report_id", report_id)
+    // // console.log("partner_report_id", partner_report_id)
 
     let updated_found_report
     let updated_partner_missing_report
@@ -346,7 +346,7 @@ router.put("/match-reports", verifyJWT, catchAsyncErrors(async (req, res, next) 
             // return res.status(200).json({ report })
         })
         .catch(err => {
-            console.log(err.message)
+            // console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
 
@@ -356,7 +356,7 @@ router.put("/match-reports", verifyJWT, catchAsyncErrors(async (req, res, next) 
             // return res.status(200).json({ report })
         })
         .catch(err => {
-            console.log(err.message)
+            // console.log(err.message)
             return res.status(500).json({ error: err.message });
         })
 

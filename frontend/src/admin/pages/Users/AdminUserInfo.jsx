@@ -31,13 +31,13 @@ const AdminUserInfo = ({ userId }) => {
             })
             .then(({ data: {user} }) => {
                 
-                console.log("user",user)
-                console.log("user",user.personal_info)
-                console.log("personal_info.item_name",user.personal_info.item_name)
+                // console.log("user",user)
+                // console.log("user",user.personal_info)
+                // console.log("personal_info.item_name",user.personal_info.item_name)
 
                 setProfile(user);
                 fetchReports()
-                console.log("user.user.images:", user.personal_info.pic)
+                // console.log("user.user.images:", user.personal_info.pic)
                 setLoading(false);
             })
         } catch (error) {
@@ -58,11 +58,11 @@ const AdminUserInfo = ({ userId }) => {
             }
         })
         .then(({ data: { reports } }) => {
-            console.log("reports", reports)
+            // console.log("reports", reports)
             setUserReports(reports)
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
             return null
         })
     };

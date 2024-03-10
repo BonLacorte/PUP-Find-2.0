@@ -14,7 +14,7 @@ const NewReportPage = ({ type }) => {
     const user_id = getUserId()
     const user_info = getUserInfo()
 
-    // console.log(user_info, "user_info")
+    // // console.log(user_info, "user_info")
 
     const access_token = getAccessToken()
     let currentDate = new Date().toISOString().split('T')[0];
@@ -45,7 +45,7 @@ const NewReportPage = ({ type }) => {
     })
 
     
-    // console.log(user)
+    // // console.log(user)
     const [allAdminLocation, setAllAdminLocation] = useState([]);
     const [allAdmin, setAllAdmin] = useState();
 
@@ -73,11 +73,11 @@ const NewReportPage = ({ type }) => {
                     });
 
                     setAllAdmin(admins)
-                    console.log('allAdminLocationObject before', allAdminLocationObject)
+                    // console.log('allAdminLocationObject before', allAdminLocationObject)
 
                     setAllAdminLocation(allAdminLocationObject)
-                    console.log("allAdmin",allAdmin)
-                    console.log("allAdminLocation",allAdminLocation)
+                    // console.log("allAdmin",allAdmin)
+                    // console.log("allAdminLocation",allAdminLocation)
 
                     setLoading(false)
 
@@ -94,10 +94,10 @@ const NewReportPage = ({ type }) => {
 
         getAllAdminLocation()
 
-        console.log("hello1")
+        // console.log("hello1")
 
         
-        console.log("hello2")
+        // console.log("hello2")
 
         // eslint-disable-next-line
     }, [] )
@@ -114,13 +114,13 @@ const NewReportPage = ({ type }) => {
     const handleReportLocation = (e) => {
         let selectedValue = e.target.value;
         formData.location = selectedValue
-        console.log('formData.location', formData.location)
+        // console.log('formData.location', formData.location)
     }
 
     const handleOfficeLocationSurrendered = (e) => {
         let selectedValue = e.target.value;
         formData.office_location_surrendered = selectedValue
-        console.log('formData.office_location_surrendered', formData.office_location_surrendered)
+        // console.log('formData.office_location_surrendered', formData.office_location_surrendered)
     }
 
     const handleItemImagesUpload = (e) => {
@@ -147,7 +147,7 @@ const NewReportPage = ({ type }) => {
                 })
                 .catch((err) => {
                     toast.dismiss(loadingToast);
-                    console.log(err);
+                    // console.log(err);
                     return toast.error(err);
                 });
         }
@@ -166,21 +166,21 @@ const NewReportPage = ({ type }) => {
             return;
         }
 
-        console.log(allAdmin)
-        console.log(type)
+        // console.log(allAdmin)
+        // console.log(type)
 
         if (type === 'found') {
             let chosenAdmin
-            console.log("formData.office_location_surrendered in handleCreateConversation", formData.office_location_surrendered)
-            console.log("allAdmin in handleCreateConversation", allAdmin)
+            // console.log("formData.office_location_surrendered in handleCreateConversation", formData.office_location_surrendered)
+            // console.log("allAdmin in handleCreateConversation", allAdmin)
             
             // If the user is not an admin
             if (formData.office_location_surrendered !== '' && user_info.personal_info.access !== 'admin') {
                 
                 chosenAdmin = allAdmin.filter(admin => admin.admin_info.office_location === formData.office_location_surrendered)[0];
-                console.log("chosenAdmin", chosenAdmin)
-                console.log("uid", user_info.personal_info.uid)
-                console.log(`chatName: ${chosenAdmin.personal_info.uid}-${user_info.personal_info.uid}`)
+                // console.log("chosenAdmin", chosenAdmin)
+                // console.log("uid", user_info.personal_info.uid)
+                // console.log(`chatName: ${chosenAdmin.personal_info.uid}-${user_info.personal_info.uid}`)
 
                 axios.post(`${server}/chat/create-new-conversation`, {
                     chatName: `${chosenAdmin.personal_info.uid}_${user_info.personal_info.uid}`,
@@ -192,7 +192,7 @@ const NewReportPage = ({ type }) => {
                     }
                 })
                 .then(({ data: { chat } }) => {
-                    console.log('chat', chat);
+                    // console.log('chat', chat);
                     toast.success('Chat conversation created successfully!');
                     
                     setTimeout(() => {
@@ -201,7 +201,7 @@ const NewReportPage = ({ type }) => {
                     }, 3000);
                 })
                 .catch(({ response }) => {
-                    console.log(response.data.error);
+                    // console.log(response.data.error);
                     toast.error(response.data.error);
                 });
             } 
@@ -216,12 +216,12 @@ const NewReportPage = ({ type }) => {
                     },
                 })
                 .then(({ data: { admins } }) => {
-                    console.log('admins', admins);
+                    // console.log('admins', admins);
     
                     admins.forEach(admin => {
-                        console.log('admin', admin);
-                        console.log('uid', user_info.personal_info.uid);
-                        console.log(`chatName: ${admin.personal_info.uid}-${user_info.personal_info.uid}`);
+                        // console.log('admin', admin);
+                        // console.log('uid', user_info.personal_info.uid);
+                        // console.log(`chatName: ${admin.personal_info.uid}-${user_info.personal_info.uid}`);
     
                         axios.post(`${server}/chat/create-new-conversation`, {
                             chatName: `${admin.personal_info.uid}_${user_info.personal_info.uid}`,
@@ -232,7 +232,7 @@ const NewReportPage = ({ type }) => {
                             },
                         })
                         .then(({ data: { chat } }) => {
-                            console.log('chat', chat);
+                            // console.log('chat', chat);
                             toast.success('Chat conversation created successfully!');
                             
                             setTimeout(() => {
@@ -242,13 +242,13 @@ const NewReportPage = ({ type }) => {
                             }, 3000);
                         })
                         .catch(({ response }) => {
-                            console.log(response.data.error);
+                            // console.log(response.data.error);
                             toast.error(response.data.error);
                         });
                     });
                 })
                 .catch(({ response }) => {
-                    console.log(response.data.error);
+                    // console.log(response.data.error);
                     toast.error(response.data.error);
                 });
             } 
@@ -283,7 +283,7 @@ const NewReportPage = ({ type }) => {
             formData.type = 'FoundReport';
         }
 
-        console.log(formData)
+        // console.log(formData)
 
         // handleCreateChatConversation()
 
@@ -302,16 +302,16 @@ const NewReportPage = ({ type }) => {
 
             if (type === 'found') {
                 let chosenAdmin
-                console.log("formData.office_location_surrendered in handleCreateConversation", formData.office_location_surrendered)
-                console.log("allAdmin in handleCreateConversation", allAdmin)
+                // console.log("formData.office_location_surrendered in handleCreateConversation", formData.office_location_surrendered)
+                // console.log("allAdmin in handleCreateConversation", allAdmin)
                 
                 // If the user is not an admin
                 if (formData.office_location_surrendered !== '' && user_info.personal_info.access !== 'admin') {
                     
                     chosenAdmin = allAdmin.filter(admin => admin.admin_info.office_location === formData.office_location_surrendered)[0];
-                    console.log("chosenAdmin", chosenAdmin)
-                    console.log("uid", user_info.personal_info.uid)
-                    console.log(`chatName: ${chosenAdmin.personal_info.uid}-${user_info.personal_info.uid}`)
+                    // console.log("chosenAdmin", chosenAdmin)
+                    // console.log("uid", user_info.personal_info.uid)
+                    // console.log(`chatName: ${chosenAdmin.personal_info.uid}-${user_info.personal_info.uid}`)
     
                     axios.post(`${server}/chat/create-new-conversation`, {
                         chatName: `${chosenAdmin.personal_info.uid}_${user_info.personal_info.uid}`,
@@ -323,7 +323,7 @@ const NewReportPage = ({ type }) => {
                         }
                     })
                     .then(({ data: { chat } }) => {
-                        console.log('chat', chat);
+                        // console.log('chat', chat);
                         toast.success('Chat conversation created successfully!');
                         
                         // e.target.classList.remove('disable')
@@ -334,7 +334,7 @@ const NewReportPage = ({ type }) => {
                         }, 3000);
                     })
                     .catch(({ response }) => {
-                        console.log(response.data.error);
+                        // console.log(response.data.error);
                         toast.error(response.data.error);
                     })
                     .finally(() => {
@@ -353,12 +353,12 @@ const NewReportPage = ({ type }) => {
                         },
                     })
                     .then(({ data: { admins } }) => {
-                        console.log('admins', admins);
+                        // console.log('admins', admins);
         
                         admins.forEach(admin => {
-                            console.log('admin', admin);
-                            console.log('uid', user_info.personal_info.uid);
-                            console.log(`chatName: ${admin.personal_info.uid}-${user_info.personal_info.uid}`);
+                            // console.log('admin', admin);
+                            // console.log('uid', user_info.personal_info.uid);
+                            // console.log(`chatName: ${admin.personal_info.uid}-${user_info.personal_info.uid}`);
         
                             axios.post(`${server}/chat/create-new-conversation`, {
                                 chatName: `${admin.personal_info.uid}_${user_info.personal_info.uid}`,
@@ -369,7 +369,7 @@ const NewReportPage = ({ type }) => {
                                 },
                             })
                             .then(({ data: { chat } }) => {
-                                console.log('chat', chat);
+                                // console.log('chat', chat);
                                 toast.success('Chat conversation created successfully!');
                                 
                                 e.target.classList.remove('disable')
@@ -380,7 +380,7 @@ const NewReportPage = ({ type }) => {
                                 }, 3000);
                             })
                             .catch(({ response }) => {
-                                console.log(response.data.error);
+                                // console.log(response.data.error);
                                 toast.error(response.data.error);
                             })
                             .finally(() => {
@@ -390,7 +390,7 @@ const NewReportPage = ({ type }) => {
                         });
                     })
                     .catch(({ response }) => {
-                        console.log(response.data.error);
+                        // console.log(response.data.error);
                         toast.error(response.data.error);
                     });
                 } 
@@ -401,7 +401,7 @@ const NewReportPage = ({ type }) => {
             // e.target.classList.remove('disable')
             toast.dismiss(loadingToast)
             setSubmitting(false)
-            console.log(response.data.error)
+            // console.log(response.data.error)
             toast.error(response.data.error)
         })
     }

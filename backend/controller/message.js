@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/get-all-messages/:chatId", catchAsyncErrors( async (req, res) => {
     
-    // console.log("req.params.chatId",req.params.chatId)
+    // // console.log("req.params.chatId",req.params.chatId)
 
     await Message.find({ chat: req.params.chatId })
     .populate("sender", "-personal_info.password, -personal_info.access, -token_version")
@@ -18,7 +18,7 @@ router.get("/get-all-messages/:chatId", catchAsyncErrors( async (req, res) => {
         return res.status(200).json({messages});
     })
     .catch ((err) => {
-        console.log(err)
+        // console.log(err)
         return res.status(500).json({ error: err.message });
     })
 
@@ -28,13 +28,13 @@ router.post("/new-message", catchAsyncErrors( async (req, res) => {
 
     const { text, chatId, userId, image } = req.body;
 
-    // console.log("new-message userId:",userId)
-    // console.log("new-message text:",text)
-    // console.log("new-message image:",image)
-    // console.log("new-message chatId:",chatId)
+    // // console.log("new-message userId:",userId)
+    // // console.log("new-message text:",text)
+    // // console.log("new-message image:",image)
+    // // console.log("new-message chatId:",chatId)
 
     if (!chatId) {
-        // console.log("Invalid data passed into request");
+        // // console.log("Invalid data passed into request");
         return res.sendStatus(400);
     }
 
@@ -46,7 +46,7 @@ router.post("/new-message", catchAsyncErrors( async (req, res) => {
         chat: chatId,
     });
 
-    // console.log("new-message message:", message)
+    // // console.log("new-message message:", message)
 
     message.save()
         .then(async (message) => {
@@ -67,7 +67,7 @@ router.post("/new-message", catchAsyncErrors( async (req, res) => {
             //         select: "-personal_info.password, -personal_info.access, -token_version",
             //     },
 
-            console.log("send message", message)
+            // console.log("send message", message)
 
             await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
 
@@ -76,7 +76,7 @@ router.post("/new-message", catchAsyncErrors( async (req, res) => {
             });
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             return res.status(500).json({ error: err.message });
         });
     // try {

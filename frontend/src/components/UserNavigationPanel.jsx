@@ -23,12 +23,12 @@ const UserNavigationPanel = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then( ({ data }) => {
-            console.log(data)
+            // console.log(data)
             setAccessToken("")
             navigate("/")
             window.location.reload(true);
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             return toast.error(err)
         });
     }

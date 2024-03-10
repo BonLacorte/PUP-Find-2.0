@@ -15,7 +15,7 @@ const SelectBox = () => {
             .then(({ data: { admins } }) => {
                 if (admins && Array.isArray(admins)) {
                     // const locations = {};
-                    // console.log(admins)                    okay
+                    // // console.log(admins)                    okay
                     // admins.forEach(admin => {
                     //     const officeLocation = admin.personal_info.office_location;
                     // });
@@ -23,7 +23,7 @@ const SelectBox = () => {
                         (admin) => admin.personal_info.office_location
                     )
                     setLocations(officeLocations)
-                    console.log(locations)
+                    // console.log(locations)
                 }
             })
             .catch(error => {

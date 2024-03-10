@@ -37,9 +37,9 @@ const App = () => {
         }).then( ({ data }) => {
             // let { access_token } = data
             // setUserAuth( access_token )
-            // console.log("App.jsx",data)
-            // console.log("access_token",access_token)
-            console.log("App.jsx data:",data.user_info._doc)
+            // // console.log("App.jsx",data)
+            // // console.log("access_token",access_token)
+            // console.log("App.jsx data:",data.user_info._doc)
             if ( data && data.access_token && data.user_id ) {
                 setAccessToken(data.access_token)
                 userAuth.access_token = getAccessToken()
@@ -48,7 +48,7 @@ const App = () => {
             }
             setLoading(false)
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         });
     
     }, [])

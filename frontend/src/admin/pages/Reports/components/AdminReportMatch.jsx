@@ -12,15 +12,15 @@ const AdminReportMatch = ({ missingReport, foundReport, setOpen }) => {
 
     const matchReports = async () => {
 
-        console.log("missingReportId",missingReport)
-        console.log("foundReportId",foundReport)
+        // console.log("missingReportId",missingReport)
+        // console.log("foundReportId",foundReport)
         
         const data = {
             found_report_id: foundReport._id,
             partner_missing_report_id: missingReport.id
         }
 
-        console.log(data)
+        // console.log(data)
 
         await axios.put(`${server}/report/match-reports`, data, {
             withCredentials: true,
@@ -29,7 +29,7 @@ const AdminReportMatch = ({ missingReport, foundReport, setOpen }) => {
             }
         })
         .then(({ data }) => {
-            console.log("data",data)
+            // console.log("data",data)
             setOpen(false)
             toast.success("Reports matched successfully, the found item can be claimed by the owner of the missing item")
             setTimeout(() => {

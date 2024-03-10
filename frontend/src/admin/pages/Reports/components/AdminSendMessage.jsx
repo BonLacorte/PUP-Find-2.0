@@ -50,10 +50,10 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
 
         formData.chat = selectedChat._id
 
-        console.log("formData.chat", formData.chat)
-        console.log("formData.text", formData.text)
-        console.log("formData.image", formData.image)
-        console.log("user_id", user_id)
+        // console.log("formData.chat", formData.chat)
+        // console.log("formData.text", formData.text)
+        // console.log("formData.image", formData.image)
+        // console.log("user_id", user_id)
 
         if (formData.chat && (formData.text || formData.image)) {
 
@@ -91,7 +91,7 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
                 setOpen(false)
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
         }
     }
@@ -99,9 +99,9 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
 
     const createChat = async () => {
 
-        console.log("Admin",user_info.personal_info.uid)
-        console.log("Admin",user_info.personal_info.name)
-        console.log("User",reportCreatorUid)
+        // console.log("Admin",user_info.personal_info.uid)
+        // console.log("Admin",user_info.personal_info.name)
+        // console.log("User",reportCreatorUid)
 
         axios.post(`${server}/chat/create-new-conversation`, {
             chatName: `${user_info.personal_info.uid}_${reportCreatorUid}`,
@@ -113,14 +113,14 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
             }
         })
         .then(({ data: { chat } }) => {
-            console.log('chat', chat);
+            // console.log('chat', chat);
             // toast.success('Chat conversation created successfully!');
 
             // setOpen(false)
             // window.location.reload(true); 
         })
         .catch(({ response }) => {
-            console.log(response.data.error);
+            // console.log(response.data.error);
             toast.error(response.data.error);
         });
 
@@ -139,10 +139,10 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
         })
         .then(({ data: { chats } }) => {
             
-            console.log("chats",chats)
+            // console.log("chats",chats)
 
-            console.log("reportCreatorId",reportCreatorId)
-            console.log("user_id",user_id)
+            // console.log("reportCreatorId",reportCreatorId)
+            // console.log("user_id",user_id)
 
             setChats(chats);
 
@@ -157,19 +157,19 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
 
             let chosenChat = filteredChats[0] // get the first chat that includes both users
 
-            console.log("chosenChat",chosenChat)
+            // console.log("chosenChat",chosenChat)
             setSelectedChat(chosenChat);
 
         })
         .catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         })
     }
 
 
     const updateLastSeenMessage = async (message) => {
         
-        // console.log("updateLastSeenMessage message:", message)
+        // // console.log("updateLastSeenMessage message:", message)
 
         await axios.put(`${server}/chat/update-last-seen-message`,
         {
@@ -183,20 +183,20 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
             }
         })
         .then(({ data: { chat } }) => {
-            // console.log("updateLastSeenMessage chat",chat)
+            // // console.log("updateLastSeenMessage chat",chat)
             // setLastMessage(chat.latestMessage)
         })
         .catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
         })
     }
 
 
     useEffect(() => {
-    //     // console.log("selectedChat", selectedChat)
-    //     // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users.find(user => user !== user_id).personal_info.name)
-    //     // console.log(user_id)
-    //     // console.log("selectedChat opposite user name", selectedChat && selectedChat.users?.find(user => user._id !== user_id)?.personal_info.name)
+    //     // // console.log("selectedChat", selectedChat)
+    //     // // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users.find(user => user !== user_id).personal_info.name)
+    //     // // console.log(user_id)
+    //     // // console.log("selectedChat opposite user name", selectedChat && selectedChat.users?.find(user => user._id !== user_id)?.personal_info.name)
 
     //     // if (inputRef.current) {
     //     //     inputRef.current.focus();
@@ -204,9 +204,9 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
 
         // if (selectedChat && selectedChatCompare) {
         //     socket.emit("chat closed", selectedChatCompare);
-        //     // console.log('chat closed')
+        //     // // console.log('chat closed')
         //     socket.emit("leave chat", selectedChatCompare);
-        //     // console.log('leave chat')
+        //     // // console.log('leave chat')
         // }
 
     //     // fetchMessages();
@@ -218,7 +218,7 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
     //     if (socket) {
     //         socket.on("message recieved", (newMessageReceived) => {
     //             if (selectedChat && selectedChat._id === newMessageReceived.chat._id) {
-    //                 // console.log(`newMessageReceived`,newMessageReceived)
+    //                 // // console.log(`newMessageReceived`,newMessageReceived)
     //                 setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
     //                 updateUser2LastSeenMessage(newMessageReceived);
     //             }
@@ -242,7 +242,7 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
         }
         getChats()
 
-        // console.log(selectedChat, "selectedChat")
+        // // console.log(selectedChat, "selectedChat")
         socket = io(ENDPOINT);
         socket.emit("setup", user_id);
         socket.on("connected", () => setSocketConnected(true));
@@ -251,7 +251,7 @@ const AdminSendMessage = ({ type, reportId, reportCreatorId, setReportCreatorId,
     
         // if (!selectedChat) {
         //     setSelectedChat(chats[0])
-        //     // console.log('set chat[0] as selectedChat',{selectedChat})
+        //     // // console.log('set chat[0] as selectedChat',{selectedChat})
         // };
 
         return () => {

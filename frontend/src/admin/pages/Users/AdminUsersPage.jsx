@@ -49,12 +49,12 @@ const AdminUsersPage = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(( {data: {users}}) => {
-            console.log("users",users)
+            // console.log("users",users)
             setUsers(users)
             // setLoading(false)
         })
         .catch (error => {
-            console.log(error)
+            // console.log(error)
         })
     }
 
@@ -85,11 +85,11 @@ const AdminUsersPage = () => {
                 'authorization': `Bearer ${access_token}`
             }
         }).then(({data}) => {
-            console.log(data)
+            // console.log(data)
             toast.success("User deleted successfully")
             getAllUsers()
         }).catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             toast.error("Error deleting user")
         })
     }
